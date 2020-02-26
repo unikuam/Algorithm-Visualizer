@@ -1,0 +1,68 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    Algorithm Visualizer
+  </title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header class="header">
+    <span class="heading">Algorithm Comparison Visualizer</span>
+  </header>
+  <div class="main-container">
+    <div class="options-block">
+      <span class="options-block-title">visualization Options</span>
+      <div class="errors">
+        <span id="error"></span>
+      </div>
+      <div class="options-panel">
+        <div class="option">
+          <label class="vis-label" for="">Data Set Size</label>
+          <input type="text" id="set-size" value='5' name="set-size" onblur="setDataSetSize();" placeholder="Enter data set size">
+        </div>
+        <div class="option">
+          <button type="button" name="do-random" id="do-random" onclick="doRandomize();">Randomize Array</button>
+        </div>
+        <div class="option">
+          <label class="vis-label" for="">Choose Algorithm</label>
+          <select id="select-algo" name="select-algo" onchange="initSelectedAlgo(this.value);">
+            <option value="Linear" class="value">Linear Search</option>
+            <option value="Binary" class="value">Binary Search</option>
+            <option value="Selection" class="value">Selection Sort</option>
+            <option value="Bubble" class="value">Bubble Sort</option>
+          </select>
+        </div>
+        <div class="option">
+          <label for="">Search Item</label>
+          <input type="text" id="search-item" value='7' placeholder="Enter search item">
+        </div>
+        <div class="option">
+          <label for="">Animation Speed</label><br>
+          <button type="button" id="decrease-speed" onclick="changeSpeed('decrease');">
+            <<</button>
+              <button type="button" id="increase-speed" onclick="changeSpeed('increase');">>></button>
+        <span id="speed_value">1</span>
+        </div>
+        <div class="option">
+          <button type="button" name="start-anim" onclick="initVisualization();">Start Animation</button>
+        </div>
+      </div>
+    </div>
+    <div class="visualization-block">
+      <div class="status">
+        <label for="">Animation Status:</label>
+        <span id="anim-state">Not started yet</span>
+      </div>
+      <!--Data will be visualized in the below section-->
+      <div id="visualization-area">
+
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <script src="js/index.js"></script>
+    <script src="js/sortings.js"></script>
+  </footer>
+</body>

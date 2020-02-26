@@ -1,0 +1,12 @@
+.errors #error span {
+  color: red;
+}
+.index-item-main{
+  padding: 11px;
+  border: 1px solid black;
+  /* margin-left: 11px; */
+  text-align: center;
+}
+#visualization-area{
+  display: flex;
+}
