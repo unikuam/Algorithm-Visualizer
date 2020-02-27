@@ -39,22 +39,26 @@ async function intSelectionAnimation() {
 }
 
 async function intLinearAnimation() {
-  updateAnimationState('In progress: Linear Search....');
-  let elToFind = SeachItemElement.value;
-  let arr = dataSetArray;
-  for (var i=0; i< arr.length; i++) {
-    let index1 = document.getElementById(`index-${i}`);
-    index1.style.background = "red";
-    await delay(1000);
-    if (arr[i] == elToFind) {
-      index1.style.background = "blue";
+  try {
+    updateAnimationState('In progress: Linear Search....');
+    let elToFind = SeachItemElement.value;
+    let arr = dataSetArray;
+    for (var i = 0; i < arr.length; i++) {
+      let index1 = document.getElementById(`index-${i}`);
+      index1.style.background = "red";
       await delay(1000);
-      return true;
+      if (arr[i] == elToFind) {
+        index1.style.background = "blue";
+        updateAnimationState('Completed: Linear Search....');
+        await delay(1000);
+        return true;
+      }
+      index1.style.background = "white";
     }
-    index1.style.background = "white";
+    updateAnimationState(`Searched item ${elToFind} not found.`);
+  } catch {
+    updateAnimationState('Some Error Occurred. Please try again.');
   }
-  updateAnimationState('Completed: Linear Search....');
-  return null;
 }
 
 async function intBubbleAnimation() {
@@ -94,6 +98,48 @@ async function intBubbleAnimation() {
   }
 }
 
-function intBinaryAnimation() {
-  console.log('sss');
+async function intBinaryAnimation() {
+  try {
+    updateAnimationState('In progress: Binary Search....');
+    let BinaryArray = dataSetArray;
+    let elToFind = SeachItemElement.value;
+    let lowIndex = 0;
+    let highIndex = BinaryArray.length - 1;
+    while (lowIndex <= highIndex) {
+      let midIndex = Math.floor((lowIndex + highIndex) / 2);
+      let index1 = document.getElementById(`index-${midIndex}`);
+      let LowIndex = '';
+      let HighIndex = '';
+      index1.style.background = "green";
+      await delay(1000);
+      if (BinaryArray[midIndex] == elToFind) {
+        index1.style.background = "blue";
+        updateAnimationState('Completed: Binary Search.');
+        await delay(1000);
+        return true;
+      } else if (BinaryArray[midIndex] < elToFind) {
+        lowIndex = midIndex + 1;
+        if (lowIndex < 0) {
+          continue;
+        }
+        LowIndex = document.getElementById(`index-${lowIndex}`);
+        LowIndex.style.background = "orange";
+        await delay(1000);
+        LowIndex.style.background = "white";
+      } else {
+        highIndex = midIndex - 1;
+        if (highIndex < 0) {
+          continue;
+        }
+        HighIndex = document.getElementById(`index-${highIndex}`);
+        HighIndex.style.background = "orange";
+        await delay(1000);
+        HighIndex.style.background = "white";
+      }
+      index1.style.background = "white";
+    }
+    updateAnimationState(`Searched item ${elToFind} not found.`);
+  } catch {
+    updateAnimationState('Some Error Occurred. Please try again.');
+  }
 }

@@ -1,12 +1,94 @@
 .errors #error span {
   color: red;
 }
-.index-item-main{
+
+.index-item-main {
   padding: 11px;
   border: 1px solid black;
-  /* margin-left: 11px; */
   text-align: center;
 }
-#visualization-area{
+
+#visualization-area {
+  /* display: flex; */
+  /* margin: 5% 12% 10% 43%; */
+  margin-top: 2%;
+  text-align: center;
+}
+
+.index-item-main {
+  display: inline-block;
+  ;
+  margin-left: 2px;
+  margin-top: 2px;
+}
+
+.header {
+  background: purple;
+  color: white;
+  padding: 0 10px 0 20px;
+}
+
+label.vis-label {
+  font-size: 17px;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.main-container input[type="text"] {
+  height: 34px;
+  width: 45px;
+  text-align: center;
+  color: #595959;
+  background: white;
+}
+
+.main-container select {
+  padding: 9px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #595959;
+}
+
+.main-container button#start_anim, #do-random {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 9px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#anim-state {
+  font-size: 15px;
+  background: black;
+  color: wheat;
+  padding: 13px;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.option {
+  margin-left: 50px;
+}
+
+.options-panel {
   display: flex;
+}
+
+.status {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.errors {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.index-item {
+  font-weight: bold;
 }

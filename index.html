@@ -9,25 +9,24 @@
 
 <body>
   <header class="header">
-    <span class="heading">Algorithm Comparison Visualizer</span>
+    <h1>Algorithm Comparison Visualizer</h1>
   </header>
   <div class="main-container">
     <div class="options-block">
-      <span class="options-block-title">visualization Options</span>
       <div class="errors">
         <span id="error"></span>
       </div>
       <div class="options-panel">
         <div class="option">
-          <label class="vis-label" for="">Data Set Size</label>
-          <input type="text" id="set-size" value='5' name="set-size" onblur="setDataSetSize();" placeholder="Enter data set size">
+          <label class="vis-label" for="">Data Set Size: </label>
+          <input type="text" id="set-size" value='15' name="set-size" onblur="setDataSetSize();" onkeyup="setDataSetSize();" placeholder="Data set">
         </div>
         <div class="option">
           <button type="button" name="do-random" id="do-random" onclick="doRandomize();">Randomize Array</button>
         </div>
         <div class="option">
-          <label class="vis-label" for="">Choose Algorithm</label>
-          <select id="select-algo" name="select-algo" onchange="initSelectedAlgo(this.value);">
+          <label class="vis-label" for="">Choose Algorithm: </label>
+          <select id="select-algo" class="vis-select" name="select-algo" onchange="initSelectedAlgo(this.value);">
             <option value="Linear" class="value">Linear Search</option>
             <option value="Binary" class="value">Binary Search</option>
             <option value="Selection" class="value">Selection Sort</option>
@@ -35,34 +34,32 @@
           </select>
         </div>
         <div class="option">
-          <label for="">Search Item</label>
-          <input type="text" id="search-item" value='7' placeholder="Enter search item">
+          <label for="" class="vis-label">Search Item: </label>
+          <input type="text" id="search-item" value='7' placeholder="Search">
         </div>
         <div class="option">
-          <label for="">Animation Speed</label><br>
-          <button type="button" id="decrease-speed" onclick="changeSpeed('decrease');">
-            <<</button>
-              <button type="button" id="increase-speed" onclick="changeSpeed('increase');">>></button>
-        <span id="speed_value">1</span>
+          <label for="" class="vis-label">Animation Speed</label><br>
+          <input type="range" id="speed_range" min="1" max="20" value="1" onChange="changeSpeed(document.getElementById('speed_value').innerText);">
+          <span id="speed_value" style="display:none;">1</span>
         </div>
         <div class="option">
-          <button type="button" name="start-anim" onclick="initVisualization();">Start Animation</button>
+          <button type="button" id="start_anim" name="start-anim" onclick="startAnimation(document.getElementById('select-algo').value);">Start Visualizer</button>
         </div>
       </div>
     </div>
     <div class="visualization-block">
       <div class="status">
-        <label for="">Animation Status:</label>
-        <span id="anim-state">Not started yet</span>
-      </div>
-      <!--Data will be visualized in the below section-->
-      <div id="visualization-area">
+        <!-- <label for="" class="vis-label">Animation Status:</label><br> -->
+        <span id="anim-state">Press Start Visualizer button to begin.</span>
 
+      </div>
+      <div id="visualization-area">
+        <!--Data will be visualized in this section-->
       </div>
     </div>
   </div>
   <footer class="footer">
-    <script src="js/index.js"></script>
-    <script src="js/sortings.js"></script>
   </footer>
+  <script src="js/index.js"></script>
+  <script src="js/sortings.js"></script>
 </body>

@@ -10,55 +10,70 @@ let speed = SpeedValueElement.innerText;
 
 window.onload = function() {
   setDataSetSize();
+  initSpeedRange();
 };
+
+function initSpeedRange() {
+  var rangeslider = document.getElementById("speed_range");
+  var output = SpeedValueElement;
+  output.innerText = rangeslider.value;
+  rangeslider.oninput = function() {
+    output.innerText = this.value;
+  }
+}
 
 function initSelectedAlgo(AlgoName) {
   let ChooseAlgoElement = SelectedAlgoElement;
-    if (AlgoName == "Linear" || AlgoName == "Binary") {
-      SeachItemElement.closest('.option').style.display = 'block';
-    } else {
-      SeachItemElement.closest('.option').style.display = 'none';
-    }
-    if (validatePanelOptions(AlgoName)) {
-      initVisualization();
-    } else {
-      setAnimationState(false);
-      return false;
-    }
+  if (AlgoName == "Linear" || AlgoName == "Binary") {
+    SeachItemElement.closest('.option').style.display = 'block';
+  } else {
+    SeachItemElement.closest('.option').style.display = 'none';
+  }
+  if (validatePanelOptions(AlgoName)) {
+    // initVisualization();
+    setDataSetSize();
+  } else {
+    updateAnimationState('Errors Occurred. Please try again.');
+    return false;
+  }
 }
 
 async function initVisualization() {
-    // await setDataSetSize();
-    // delay(100);
-    createBlockAndRender();
-    await startAnimation(SelectedAlgoElement.value);
+  // await setDataSetSize();
+  // delay(100);
+  setDataSetSize();
+  await startAnimation(SelectedAlgoElement.value);
 }
 
 async function startAnimation(AlgoName) {
-    updateAnimationState(`Start ${AlgoName}.....`);
-    let FunctionName = 'int'+AlgoName+'Animation';
-    await window[FunctionName]();
+  updateAnimationState(`Start ${AlgoName}.....`);
+  let FunctionName = 'int' + AlgoName + 'Animation';
+  await window[FunctionName]();
 }
 
 function createBlockAndRender() {
   VisualizationAreaElement.innerHTML = ''; //reset visualization area
-  let FixedWidth = 100/dataSetArray.length;
+  let FixedWidth = 100 / dataSetArray.length;
+  if (SelectedAlgoElement.value == 'Binary') {
+    dataSetArray.sort((a, b) => a - b);
+  }
   for (let i = 0; i < dataSetArray.length; i++) {
     let ArrayBlock = document.createElement('div');
     let ArrayBlockValue = document.createElement('div');
-    ArrayBlock.setAttribute('id', 'index-'+i);
+    ArrayBlock.setAttribute('id', 'index-' + i);
     if (SelectedAlgoElement.value == "Linear" || SelectedAlgoElement.value == "Binary") {
-      ArrayBlock.style.height =  dataSetArray[i]+'px';
-      ArrayBlock.style.width = FixedWidth+'px';
-      ArrayBlock.innerHTML = dataSetArray[i];
-      ArrayBlock.style.marginTop  = (100 - dataSetArray[i])+'px';
+      // ArrayBlock.style.height =  '23px';
+      ArrayBlock.style.width = '23px';
+      ArrayBlock.style.borderRadius = '10px';
+      ArrayBlockValue.innerHTML = dataSetArray[i];
+      // ArrayBlock.style.marginTop  = (100 - dataSetArray[i])+'px';
     } else {
-      ArrayBlock.style.height =  dataSetArray[i]+'px';
-      ArrayBlock.style.width = FixedWidth+'px';
-      ArrayBlock.style.marginTop  = (100 - dataSetArray[i])+'px';
+      ArrayBlock.style.height = dataSetArray[i] + 'px';
+      // ArrayBlock.style.width = FixedWidth+'px';
+      ArrayBlock.style.marginTop = (100 - dataSetArray[i]) + 'px';
     }
     ArrayBlock.setAttribute('class', 'index-item-main');
-    ArrayBlockValue.setAttribute('class','index-item');
+    ArrayBlockValue.setAttribute('class', 'index-item');
     // ArrayBlockValue.innerHTML = dataSetArray[i];
     ArrayBlock.appendChild(ArrayBlockValue);
     VisualizationAreaElement.appendChild(ArrayBlock);
@@ -70,20 +85,14 @@ function setDataSetSize() {
     return false;
   }
   let dataSetValue = parseInt(SetSizeElement.value);
-  let sorted = false;
-  if (SelectedAlgoElement.value == 'Binary')
-    sorted = true;
-  generateRandomArray(dataSetValue, sorted);
+  generateRandomArray(dataSetValue);
   createBlockAndRender();
 }
 
-function generateRandomArray(dataSetValue, sorted = false) {
+function generateRandomArray(dataSetValue) {
   dataSetArray.length = 0;
   for (let i = 0; i < dataSetValue; i++) {
     dataSetArray.push(Math.floor((Math.random() * 100) + 2));
-  }
-  if (sorted) {
-    dataSetArray.sort((a, b) => a - b);
   }
 }
 
@@ -91,22 +100,11 @@ function doRandomize() {
   setDataSetSize();
 }
 
-function changeSpeed(type) {
-  if (type == 'increase' && speed < 20) {
-      speed++;
-      SpeedValueElement.innerHTML = speed;
-  }
-  if (type == 'decrease' && speed > 1) {
-      speed--;
-      SpeedValueElement.innerHTML = speed;
-  }
-}
-
-function setAnimationState(state = false) {
-  if (state) {
-    updateAnimationState('Some errors found.');
-  } else {
-    updateAnimationState('Not started yet.');
+function changeSpeed(speed) {
+  speed = parseInt(speed);
+  if (speed < 20 && speed > 1) {
+    speed++;
+    SpeedValueElement.innerHTML = speed;
   }
 }
 
@@ -144,6 +142,6 @@ async function delay(timeout) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(true);
-    }, timeout / speed)
+    }, timeout / parseInt(SpeedValueElement.innerText))
   })
 }
