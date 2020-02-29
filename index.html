@@ -19,7 +19,7 @@
       <div class="options-panel">
         <div class="option">
           <label class="vis-label" for="">Data Set Size: </label>
-          <input type="text" id="set-size" value='15' name="set-size" onblur="setDataSetSize();" onkeyup="setDataSetSize();" placeholder="Data set">
+          <input type="text" id="set-size" value='20' name="set-size" onblur="setDataSetSize();" onkeyup="setDataSetSize();" placeholder="Data set">
         </div>
         <div class="option">
           <button type="button" name="do-random" id="do-random" onclick="doRandomize();">Randomize Array</button>
@@ -31,6 +31,8 @@
             <option value="Binary" class="value">Binary Search</option>
             <option value="Selection" class="value">Selection Sort</option>
             <option value="Bubble" class="value">Bubble Sort</option>
+            <!-- <option value="Quick" class="value">Quick Sort</option> -->
+            <!-- <option value="Insertion" class="value">Insertion Sort</option> -->
           </select>
         </div>
         <div class="option">
@@ -39,8 +41,8 @@
         </div>
         <div class="option">
           <label for="" class="vis-label">Animation Speed</label><br>
-          <input type="range" id="speed_range" min="1" max="20" value="1" onChange="changeSpeed(document.getElementById('speed_value').innerText);">
-          <span id="speed_value" style="display:none;">1</span>
+          <input type="range" class="slider" id="speed_range" min="1" max="40" value="20" onChange="changeSpeed(document.getElementById('speed_value').innerText);">
+          <span id="speed_value" style="display:none;">20</span>
         </div>
         <div class="option">
           <button type="button" id="start_anim" name="start-anim" onclick="startAnimation(document.getElementById('select-algo').value);">Start Visualizer</button>
@@ -59,7 +61,11 @@
     </div>
   </div>
   <footer class="footer">
+    <p>Algorithm Visualizer - Developed By Anshul Mittal 2020</p>
   </footer>
   <script src="js/index.js"></script>
   <script src="js/sortings.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/visualization.js"></script>
+  <script src="js/QuickSort.js"></script>
 </body>
