@@ -57,10 +57,10 @@ function validatePanelOptions(algo) {
   let errors = [];
   if (SetSize.trim() == "" || !Number.isInteger(parseInt(SetSize))) {
     errors.push('Invalid Data Size Value');
-  } else if (!window.matchMedia("(max-width: 600px)").matches && parseInt(SetSize) > 1000 || parseInt(SetSize) < 2) {
-    errors.push('Please enter the value between 2 to 1000 only');
-  } else if (window.matchMedia("(max-width: 600px)").matches && parseInt(SetSize) > 300 || parseInt(SetSize) < 2) {
-    errors.push('Please enter the value between 2 to 300 only');
+  } else if ((window.matchMedia("(max-width: 600px)").matches) && (parseInt(SetSize) > 300 || parseInt(SetSize) < 2)) {
+    errors.push('Please enter the values between 2 to 300 only');
+  } else if (!(window.matchMedia("(max-width: 600px)").matches) && (parseInt(SetSize) > 1000 || parseInt(SetSize) < 2)) {
+    errors.push('Please enter the values between 2 to 1000 only');
   }
   if (algo == "Linear" || algo == "Binary") {
     let SearchItem = SeachItemElement.value;

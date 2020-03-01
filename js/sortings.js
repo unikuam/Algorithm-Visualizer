@@ -1,68 +1,80 @@
 async function intQuickAnimation() {
-  // try {
+  try {
     let QuickArray = dataSetArray;
     let index;
     updateAnimationState('In progress: Quick Sort....');
     disableInputFields();
     let t0 = performance.now();
-    let result = await quickSort(QuickArray, 0, QuickArray.length - 1);
-    console.log(result);
-    if (result.length > 0) {
-      let t1 = performance.now();
-      updateAnimationState(`Completed: Quick Sort in ${((t1-t0)/1000).toFixed(2)} seconds.`);
-      enableInputFields();
-    }
-    // let left = 0;
-    // let right = QuickArray.length - 1;
-    // do {
-    //   let pivotIndex = Math.floor((right + left) / 2);
-    //   let pivot = QuickArray[pivotIndex];
-    //   let i = left;
-    //   let j = right;
-    //   let pivotelm = document.getElementById(`index-${pivotIndex}`);
-    //   let indexleft = document.getElementById(`index-${i}`);
-    //   let indexright = document.getElementById(`index-${j}`);
-    //   pivotelm.style.background = "yellow";
-    //   indexleft.style.background = "red";
-    //   indexright.style.background = "red";
-    //   await delay(1000);
-    //   while (i <= j) {
-    //       while (QuickArray[i] < pivot) {
-    //           i++;
-    //       }
-    //       while (QuickArray[j] > pivot) {
-    //           j--;
-    //       }
-    //       if (i <= j) {
-    //           let temp = QuickArray[i];
-    //           indexleft.style.height = QuickArray[i] + 'px';
-    //           indexleft.style.marginTop = (100 - QuickArray[i]) + 'px';
-    //           QuickArray[i] = QuickArray[j];
-    //           indexright.style.height = temp + 'px';
-    //           indexright.style.marginTop = (100 - temp) + 'px';
-    //           QuickArray[j] = temp;
-    //           indexleft.style.background = "blue";
-    //           indexright.style.background = "blue";
-    //           i++;
-    //           j--;
-    //       }
-    //   }
-    //   await delay(1000);
-    //   indexleft.style.background = "#4CAF50";
-    //   indexright.style.background = "#4CAF50";
-    //   pivotelm.style.background = "#4CAF50";
-    //   index = i;
-    //   if (left < index - 1) { //more elements on the left side of the pivot
-    //       right = index - 1;
-    //   }
-    //   if (index < right) { //more elements on the right side of the pivot
-    //       left = index;
-    //   }
-    // } while (left < right);
+    let QuickStack = [];
+    let l = 0;
+    let h = QuickArray.length-1;
+    QuickStack.push(l);
+    QuickStack.push(h);
+    while (QuickStack.length > 0) {
+      let h = QuickStack.pop();
+      let l = QuickStack.pop();
+      var p;
+      var x = QuickArray[h];
+      var i = (l - 1);
+      let helement = document.getElementById(`index-${h}`);
+      helement.style.background = "red";
+      await delay(1000);
+      helement.style.backgroundColor = "#4CAF50";
 
-  // } catch {
-  //   updateAnimationState('Some Error Occurred. Please try again.');
-  // }
+      for (var j = l; j <= h - 1; j++) {
+          if (QuickArray[j] <= x) {
+              i++;
+              let index1 = document.getElementById(`index-${i}`);
+              let index2 = document.getElementById(`index-${j}`);
+              index1.style.background = "red";
+              index2.style.background = "red";
+              await delay(1000);
+              let temp = QuickArray[i];
+              QuickArray[i] = QuickArray[j];
+              index1.style.height = QuickArray[j] + 'px';
+              index1.style.marginTop = (100 - QuickArray[j]) + 'px';
+              QuickArray[j] = temp;
+              index2.style.height = temp + 'px';
+              index2.style.marginTop = (100 - temp) + 'px';
+              await delay(1000);
+              index1.style.background = "#4CAF50";
+              index2.style.background = "#4CAF50";
+          }
+
+      }
+      let index1 = document.getElementById(`index-${i+1}`);
+      let index2 = document.getElementById(`index-${h}`);
+      index1.style.background = "red";
+      index2.style.background = "red";
+      await delay(1000);
+      let temp = QuickArray[i+1];
+      QuickArray[i+1] = QuickArray[h];
+      index1.style.height = QuickArray[h] + 'px';
+      index1.style.marginTop = (100 - QuickArray[h]) + 'px';
+      QuickArray[h] = temp;
+      index2.style.height = temp + 'px';
+      index2.style.marginTop = (100 - temp) + 'px';
+      await delay(1000);
+      index1.style.backgroundColor = "#4CAF50";
+      index2.style.backgroundColor = "#4CAF50";
+      p = (i + 1);
+      if (p - 1 > l) {
+          QuickStack.push(l);
+          QuickStack.push(p-1);
+      }
+
+      if (p + 1 < h) {
+          QuickStack.push(p+1);
+          QuickStack.push(h);
+      }
+    }
+    let t1 = performance.now();
+    updateAnimationState(`Completed: Quick Sort in ${((t1-t0)/1000).toFixed(2)} seconds.`);
+    enableInputFields();
+
+  } catch {
+    updateAnimationState('Some Error Occurred. Please try again.');
+  }
 }
 
 async function intSelectionAnimation() {
@@ -124,6 +136,10 @@ async function intLinearAnimation() {
         index1.style.background = "orange";
         let t1 = performance.now();
         updateAnimationState(`Completed: Linear Search in ${((t1-t0)/1000).toFixed(2)} seconds.`);
+        enableInputFields();
+        $('html, body').animate({
+        scrollTop: $("#index-"+i).offset().top
+        }, 2000);
         await delay(1000);
         return true;
       }
@@ -198,6 +214,10 @@ async function intBinaryAnimation() {
         index1.style.background = "orange";
         let t1 = performance.now();
         updateAnimationState(`Completed: Binary Search in ${((t1-t0)/1000).toFixed(2)} seconds.`);
+        enableInputFields();
+        $('html, body').animate({
+        scrollTop: $("#index-"+midIndex).offset().top
+        }, 2000);
         await delay(1000);
         return true;
       } else if (BinaryArray[midIndex] < elToFind) {

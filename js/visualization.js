@@ -43,6 +43,7 @@ function createBlockAndRender() {
         VisualizationAreaElement.style.marginBottom = 10 + '%';
       } else {
         VisualizationAreaElement.style.marginTop = defaultMarginTop.searching + '%';
+        VisualizationAreaElement.style.marginBottom = defaultMarginTop.searching + '%';
       }
       /*End: For searching case*/
     } else {
